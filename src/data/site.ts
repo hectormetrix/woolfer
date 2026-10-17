@@ -2,12 +2,12 @@ import shed from "@/assets/shed.jpg";
 import garage from "@/assets/garage.jpg";
 import patio from "@/assets/patio.jpg";
 import carport from "@/assets/carport.jpg";
+import logo from "@/assets/3c7755ba-655e-4f97-903f-95a15e6e76a0.png";
 
 /* Everything a non-developer is likely to change lives in this file. */
 
 export const site = {
-  /** Save the logo file as public/logo.png */
-  logo: "/logo.png",
+  logo,
   phoneHref: "tel:2106817433",
   phoneShort: "(210) 681-SHED",
   phoneFull: "(210) 681-SHED (7433)",
@@ -29,14 +29,16 @@ export const hours = [
 ];
 
 export const navLinks = [
-  { label: "Our products", id: "products" },
-  { label: "Why Woolfsheds", id: "why-woolfsheds" },
+  { label: "Sheds", id: "sheds" },
+  { label: "Garages", id: "garages" },
+  { label: "Patio Covers", id: "patio-covers" },
+  { label: "Carports", id: "carports" },
   { label: "Reviews", id: "reviews" },
-  { label: "Visit us", id: "visit" },
 ];
 
 export type Product = {
   name: string;
+  slug: string;
   image: string;
   price: string;
   description: string;
@@ -47,6 +49,7 @@ export type Product = {
 export const products: Product[] = [
   {
     name: "Sheds",
+    slug: "sheds",
     image: shed,
     price: "$3,099",
     description: "Storage. Backyard gym. Home office. Art studio. You call it. We build it.",
@@ -56,6 +59,7 @@ export const products: Product[] = [
   },
   {
     name: "Garages",
+    slug: "garages",
     image: garage,
     price: "$12,000",
     description: "Room for your ride. Built to protect your vehicles and match your home.",
@@ -65,6 +69,7 @@ export const products: Product[] = [
   },
   {
     name: "Patio Covers",
+    slug: "patio-covers",
     image: patio,
     price: "$4,800",
     description: "More good times. Less Texas sun. Make the outdoors your favorite room.",
@@ -74,6 +79,7 @@ export const products: Product[] = [
   },
   {
     name: "Carports",
+    slug: "carports",
     image: carport,
     price: "$4,800",
     description: "Serious protection. Standout curb appeal. Give your vehicles a little shade.",

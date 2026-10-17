@@ -8,44 +8,64 @@ import { Reviews } from "@/components/Reviews";
 import { CallToAction } from "@/components/CallToAction";
 import { Location } from "@/components/Location";
 import { Footer } from "@/components/Footer";
-import { ProductDialog } from "@/components/ProductDialog";
 import { InspectionDialog } from "@/components/InspectionDialog";
+import { ShedStyles } from "@/components/ShedStyles";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
-import { products } from "@/data/site";
+import { CarportsPage } from "@/pages/Carports";
+import { ProductPage } from "@/pages/ProductPage";
+import { shedsPage, garagesPage, patioCoversPage } from "@/pages/productPages";
 
 export default function App() {
   const [inspectionOpen, setInspectionOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState("Sheds");
-  const [detail, setDetail] = useState<number | null>(null);
+  const pathname = window.location.pathname.replace(/\/+$/, "").toLowerCase() || "/";
+  const currentProduct =
+    pathname === "/carport" || pathname === "/carports"
+      ? "Carports"
+      : pathname === "/sheds"
+        ? "Sheds"
+        : pathname === "/garages"
+          ? "Garages"
+          : pathname === "/patio-covers"
+            ? "Patio Covers"
+            : null;
 
   useScrollReveal();
 
   /** Opens the free site inspection form, pre-set to a product. */
   const openInspection = (product = "Sheds") => {
     setSelectedProduct(product);
-    setDetail(null);
     setInspectionOpen(true);
   };
 
   return (
     <>
-      <Header onInspect={() => openInspection()} />
+      <Header onInspect={() => openInspection(currentProduct ?? "Sheds")} />
       <main>
-        <Hero />
-        <PromiseStrip />
-        <Products onExplore={setDetail} />
-        <WhyWoolfsheds onInspect={() => openInspection()} />
-        <Reviews />
-        <CallToAction onInspect={() => openInspection()} />
-        <Location />
+        {currentProduct === "Carports" ? (
+          <CarportsPage onInspect={() => openInspection("Carports")} />
+        ) : currentProduct === "Sheds" ? (
+          <ProductPage {...shedsPage} onInspect={() => openInspection("Sheds")}>
+            <ShedStyles image={shedsPage.product.image} />
+          </ProductPage>
+        ) : currentProduct === "Garages" ? (
+          <ProductPage {...garagesPage} onInspect={() => openInspection("Garages")} />
+        ) : currentProduct === "Patio Covers" ? (
+          <ProductPage {...patioCoversPage} onInspect={() => openInspection("Patio Covers")} />
+        ) : (
+          <>
+            <Hero />
+            <PromiseStrip />
+            <Products />
+            <WhyWoolfsheds onInspect={() => openInspection()} />
+            <Reviews />
+            <CallToAction onInspect={() => openInspection()} />
+            <Location />
+          </>
+        )}
       </main>
-      <Footer onExplore={setDetail} onInspect={() => openInspection()} />
+      <Footer onInspect={() => openInspection(currentProduct ?? "Sheds")} />
 
-      <ProductDialog
-        product={detail === null ? null : (products[detail] ?? null)}
-        onClose={() => setDetail(null)}
-        onInspect={openInspection}
-      />
       <InspectionDialog
         open={inspectionOpen}
         onOpenChange={setInspectionOpen}

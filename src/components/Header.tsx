@@ -23,7 +23,7 @@ export function Header({ onInspect }: { onInspect: () => void }) {
   return (
     <header className={`site-header${scrolled ? " is-scrolled" : ""}`}>
       <div className="site-width header-inner">
-        <a className="brand-link" href="#" aria-label="Woolfsheds home">
+        <a className="brand-link" href="/" aria-label="Woolfsheds home">
           <img
             className="brand-logo"
             src={site.logo}
@@ -34,7 +34,12 @@ export function Header({ onInspect }: { onInspect: () => void }) {
         </a>
         <nav className="main-nav" aria-label="Main navigation">
           {navLinks.map(({ label, id }) => (
-            <a key={id} href={`#${id}`}>
+            <a
+              key={id}
+              href={navigationHref(id)}
+              target={id === "reviews" ? "_blank" : undefined}
+              rel={id === "reviews" ? "noopener noreferrer" : undefined}
+            >
               {label}
             </a>
           ))}
@@ -62,7 +67,13 @@ export function Header({ onInspect }: { onInspect: () => void }) {
       {menu && (
         <nav className="mobile-nav" aria-label="Mobile navigation">
           {navLinks.map(({ label, id }) => (
-            <a key={id} href={`#${id}`} onClick={() => setMenu(false)}>
+            <a
+              key={id}
+              href={navigationHref(id)}
+              target={id === "reviews" ? "_blank" : undefined}
+              rel={id === "reviews" ? "noopener noreferrer" : undefined}
+              onClick={() => setMenu(false)}
+            >
               {label}
             </a>
           ))}
@@ -76,4 +87,10 @@ export function Header({ onInspect }: { onInspect: () => void }) {
       )}
     </header>
   );
+}
+
+function navigationHref(id: string) {
+  if (["sheds", "garages", "patio-covers", "carports"].includes(id)) return `/${id}`;
+  if (id === "reviews") return site.reviewsUrl;
+  return window.location.pathname === "/" ? `#${id}` : `/#${id}`;
 }

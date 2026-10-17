@@ -13,7 +13,7 @@ In a GitHub Codespace the install runs on its own; start `npm run dev` and open 
 
 ## Before it goes live
 
-- **Logo:** save the logo as `public/logo.png`. The header and footer already point to it.
+- **Logo:** the header uses the image imported by `src/data/site.ts` from `src/assets/`. To replace it, add the new image there and update that import.
 - **Form:** the inspection form opens the visitor's email app. Replace `submitInspection` in `src/components/InspectionRequest.tsx` when the backend is ready.
 - **Reviews:** the three review cards are labelled as illustrative. Swap in real ones in `src/data/site.ts` and remove the label in `src/components/Reviews.tsx`.
 
@@ -23,5 +23,6 @@ In a GitHub Codespace the install runs on its own; start `npm run dev` and open 
 | --- | --- |
 | Products, prices, phone, address, hours, review text | `src/data/site.ts` |
 | Colors, fonts, all styling | `src/styles.css` (brand blue is `--blue` at the top) |
-| Page order | `src/App.tsx` |
+| Homepage and product routes (`/sheds`, `/garages`, `/patio-covers`, `/carports`) | `src/App.tsx` |
+| Shared product-page layout and content | `src/pages/` |
 | One file per section | `src/components/` |

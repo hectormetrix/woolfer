@@ -3,7 +3,7 @@ import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { products } from "@/data/site";
 
-export function Products({ onExplore }: { onExplore: (index: number) => void }) {
+export function Products() {
   return (
     <section id="products" className="products-section">
       <div className="site-width">
@@ -11,7 +11,7 @@ export function Products({ onExplore }: { onExplore: (index: number) => void }) 
           <div>
             <div className="eyebrow">Your backyard. Upgraded.</div>
             <h2 className="section-title">
-              Four ways to <em>go big.</em>
+              What do we build? <em>Whatever you need.</em>
             </h2>
           </div>
           <p className="section-description">
@@ -26,11 +26,10 @@ export function Products({ onExplore }: { onExplore: (index: number) => void }) 
               data-reveal
               style={{ "--reveal-delay": `${i * 80}ms` } as CSSProperties}
             >
-              <button
-                type="button"
+              <a
+                href={`/${p.slug}`}
                 className="product-image-wrap"
-                onClick={() => onExplore(i)}
-                aria-label={`Explore ${p.name}`}
+                aria-label={`Explore custom ${p.name}`}
               >
                 <img
                   src={p.image}
@@ -41,7 +40,7 @@ export function Products({ onExplore }: { onExplore: (index: number) => void }) 
                 />
                 <span className="product-num">0{i + 1}</span>
                 <span className="product-name">{p.name}</span>
-              </button>
+              </a>
               <div className="product-body">
                 <h3 className="sr-only">{p.name}</h3>
                 <p className="product-description">{p.description}</p>
@@ -51,11 +50,13 @@ export function Products({ onExplore }: { onExplore: (index: number) => void }) 
                 </div>
                 <div className="product-note">{p.note}</div>
                 <Button
+                  asChild
                   variant="outline"
                   className="rock-button product-link"
-                  onClick={() => onExplore(i)}
                 >
-                  Explore {p.name} <ArrowRight />
+                  <a href={`/${p.slug}`}>
+                    Explore {p.name} <ArrowRight />
+                  </a>
                 </Button>
               </div>
             </article>

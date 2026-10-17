@@ -1,6 +1,5 @@
-import { ArrowUpRight, Phone } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { site } from "@/data/site";
 
 export function CallToAction({ onInspect }: { onInspect: () => void }) {
   return (
@@ -18,9 +17,6 @@ export function CallToAction({ onInspect }: { onInspect: () => void }) {
           <Button variant="light" className="rock-button" onClick={onInspect}>
             Schedule a free site inspection <ArrowUpRight />
           </Button>
-          <a className="inspection-phone" href={site.phoneHref}>
-            <Phone aria-hidden="true" /> or call {site.phoneShort}
-          </a>
         </div>
       </div>
     </section>

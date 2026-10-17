@@ -3,10 +3,8 @@ import { Button } from "@/components/ui/button";
 import { hours, products, site } from "@/data/site";
 
 export function Footer({
-  onExplore,
   onInspect,
 }: {
-  onExplore: (index: number) => void;
   onInspect: () => void;
 }) {
   return (
@@ -14,7 +12,7 @@ export function Footer({
       <div className="site-width">
         <div className="footer-top">
           <div className="footer-brand">
-            <a className="footer-logo" href="#" aria-label="Woolfsheds home">
+            <a className="footer-logo" href="/" aria-label="Woolfsheds home">
               <img
                 className="brand-logo"
                 src={site.logo}
@@ -52,14 +50,16 @@ export function Footer({
           </div>
           <nav className="footer-col" aria-label="Footer navigation">
             <h3>Quick links</h3>
-            {products.map((p, i) => (
+            {products.map((p) => (
               <Button
+                asChild
                 key={p.name}
                 variant="inverseLink"
                 className="footer-link"
-                onClick={() => onExplore(i)}
               >
-                <ArrowRight /> {p.name}
+                <a href={`/${p.slug}`}>
+                  <ArrowRight /> {p.name}
+                </a>
               </Button>
             ))}
             <Button variant="inverseLink" className="footer-link" onClick={onInspect}>
