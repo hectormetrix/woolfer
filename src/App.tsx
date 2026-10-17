@@ -9,18 +9,21 @@ import { CallToAction } from "@/components/CallToAction";
 import { Location } from "@/components/Location";
 import { Footer } from "@/components/Footer";
 import { InspectionDialog } from "@/components/InspectionDialog";
-import { ShedStyles } from "@/components/ShedStyles";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
+import { BarnPage } from "@/pages/Barn";
 import { CarportsPage } from "@/pages/Carports";
-import { ProductPage } from "@/pages/ProductPage";
-import { shedsPage, garagesPage, patioCoversPage } from "@/pages/productPages";
+import { GaragesPage } from "@/pages/Garages";
+import { PatioCoversPage } from "@/pages/PatioCovers";
+import { ShedsPage } from "@/pages/Sheds";
 
 export default function App() {
   const [inspectionOpen, setInspectionOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState("Sheds");
   const pathname = window.location.pathname.replace(/\/+$/, "").toLowerCase() || "/";
   const currentProduct =
-    pathname === "/carport" || pathname === "/carports"
+    pathname === "/barn"
+      ? "Barn"
+      : pathname === "/carport" || pathname === "/carports"
       ? "Carports"
       : pathname === "/sheds"
         ? "Sheds"
@@ -29,6 +32,7 @@ export default function App() {
           : pathname === "/patio-covers"
             ? "Patio Covers"
             : null;
+  const inspectionProduct = currentProduct === "Barn" ? "Sheds" : currentProduct ?? "Sheds";
 
   useScrollReveal();
 
@@ -40,18 +44,18 @@ export default function App() {
 
   return (
     <>
-      <Header onInspect={() => openInspection(currentProduct ?? "Sheds")} />
+      <Header onInspect={() => openInspection(inspectionProduct)} />
       <main>
-        {currentProduct === "Carports" ? (
+        {currentProduct === "Barn" ? (
+          <BarnPage onInspect={() => openInspection("Sheds")} />
+        ) : currentProduct === "Carports" ? (
           <CarportsPage onInspect={() => openInspection("Carports")} />
         ) : currentProduct === "Sheds" ? (
-          <ProductPage {...shedsPage} onInspect={() => openInspection("Sheds")}>
-            <ShedStyles image={shedsPage.product.image} />
-          </ProductPage>
+          <ShedsPage onInspect={() => openInspection("Sheds")} />
         ) : currentProduct === "Garages" ? (
-          <ProductPage {...garagesPage} onInspect={() => openInspection("Garages")} />
+          <GaragesPage onInspect={() => openInspection("Garages")} />
         ) : currentProduct === "Patio Covers" ? (
-          <ProductPage {...patioCoversPage} onInspect={() => openInspection("Patio Covers")} />
+          <PatioCoversPage onInspect={() => openInspection("Patio Covers")} />
         ) : (
           <>
             <Hero />
@@ -64,7 +68,7 @@ export default function App() {
           </>
         )}
       </main>
-      <Footer onInspect={() => openInspection(currentProduct ?? "Sheds")} />
+      <Footer onInspect={() => openInspection(inspectionProduct)} />
 
       <InspectionDialog
         open={inspectionOpen}

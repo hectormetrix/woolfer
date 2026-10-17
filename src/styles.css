@@ -561,9 +561,15 @@ button {
   gap: 8px;
   min-width: 0;
   padding: 20px 4px 24px;
+  border: 0;
+  background: transparent;
   color: rgb(255 255 255 / 0.68);
+  font: inherit;
   text-align: left;
   transition: color 0.25s;
+}
+.hero-slide-tabs .hero-tab {
+  cursor: pointer;
 }
 .hero-tab:hover,
 .hero-tab.active {
@@ -1011,8 +1017,20 @@ button {
   grid-template-areas: "message form";
   padding-bottom: clamp(40px, 5vw, 72px);
 }
-.hero-product-page .hero-image {
+.hero-shed-slider .hero-inner {
+  grid-template-areas:
+    "message form"
+    "tabs tabs";
+}
+.hero-shed-slider .hero-tabs {
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+.hero-product-page:not(.hero-shed-slider) .hero-image {
   opacity: 1;
+  transform: none;
+  object-position: center 58%;
+}
+.hero-shed-slider .hero-image {
   transform: none;
   object-position: center 58%;
 }
@@ -1258,6 +1276,15 @@ button {
   border: 1px solid var(--grey-line);
   border-radius: 10px;
   background: var(--white);
+}
+.shed-style-card-link {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+.shed-style-card-link:focus-visible {
+  outline: 3px solid var(--blue);
+  outline-offset: -3px;
 }
 .shed-style-image {
   overflow: hidden;
@@ -1662,6 +1689,12 @@ a.contact-item:hover {
       "message"
       "form";
   }
+  .hero-shed-slider .hero-inner {
+    grid-template-areas:
+      "message"
+      "tabs"
+      "form";
+  }
   .hero-cta-form {
     display: inline-flex;
   }
@@ -1744,6 +1777,9 @@ a.contact-item:hover {
   }
   .hero-tabs {
     gap: 8px;
+  }
+  .hero-shed-slider .hero-tabs {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
   .hero-tab-price {
     display: none;

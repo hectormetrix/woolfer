@@ -1,7 +1,7 @@
 import shed from "@/assets/shed.jpg";
 import garage from "@/assets/garage.jpg";
-import patio from "@/assets/patio.jpg";
-import carport from "@/assets/carport.jpg";
+import patioCover from "@/assets/woolf-patio-cover.jpg";
+import carport from "@/assets/woolf-carport.jpg";
 import logo from "@/assets/3c7755ba-655e-4f97-903f-95a15e6e76a0.png";
 
 /* Everything a non-developer is likely to change lives in this file. */
@@ -70,7 +70,7 @@ export const products: Product[] = [
   {
     name: "Patio Covers",
     slug: "patio-covers",
-    image: patio,
+    image: patioCover,
     price: "$4,800",
     description: "More good times. Less Texas sun. Make the outdoors your favorite room.",
     note: "Custom built for your space",

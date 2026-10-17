@@ -1,12 +1,13 @@
 import type { CSSProperties } from "react";
-import { ArrowUpRight, CarFront, Hammer, Ruler, ShieldCheck } from "lucide-react";
+import { ArrowRight, ArrowUpRight, CarFront, Flag, Hammer, Phone, Ruler, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { CallToAction } from "@/components/CallToAction";
-import { Hero } from "@/components/Hero";
 import { Location } from "@/components/Location";
+import { ProductHeroForm } from "@/components/ProductHeroForm";
 import { PromiseStrip } from "@/components/PromiseStrip";
 import { Reviews } from "@/components/Reviews";
-import { products } from "@/data/site";
+import { Stars } from "@/components/Stars";
+import { products, site } from "@/data/site";
 
 const carport = products.find((product) => product.name === "Carports")!;
 
@@ -31,16 +32,62 @@ const benefits = [
 export function CarportsPage({ onInspect }: { onInspect: () => void }) {
   return (
     <>
-      <Hero
-        productPage={{
-          product: carport,
-          kicker: "Custom built in San Antonio",
-          headline: ["Room to park.", "Shade to spare."],
-          script: "Built your way.",
-          copy: "A carport designed for your property, built onsite, and made to feel right at home.",
-          detailsHref: "#carport-details",
-        }}
-      />
+      <section className="hero hero-product-page" aria-label="Custom carports in San Antonio">
+        <div className="hero-media">
+          <img
+            src={carport.image}
+            className="hero-image active"
+            alt="Custom carport built for a San Antonio property"
+            width="1280"
+            height="960"
+            fetchPriority="high"
+          />
+          <div className="hero-shade" />
+        </div>
+        <div className="site-width hero-inner">
+          <div className="hero-message">
+            <p className="hero-kicker">
+              <Flag aria-hidden="true" />
+              Custom built in San Antonio
+            </p>
+            <h1>
+              <span className="hero-line">Room to park.</span>
+              <span className="hero-line">Shade to spare.</span>
+              <span className="hero-script">Built your way.</span>
+            </h1>
+            <p className="hero-product-price">
+              Starting at <strong>{carport.price}</strong> · {carport.note}
+            </p>
+            <p className="hero-copy">
+              A carport designed for your property, built onsite, and made to feel right at home.
+            </p>
+            <div className="hero-ctas">
+              <Button asChild variant="light" className="rock-button hero-cta-form">
+                <a href="#free-inspection">
+                  Free site inspection <ArrowUpRight />
+                </a>
+              </Button>
+              <Button asChild variant="light" className="rock-button hero-cta-call">
+                <a href={site.phoneHref}>
+                  <Phone /> Call {site.phoneShort}
+                </a>
+              </Button>
+              <Button asChild variant="heroOutline" className="rock-button hero-cta-explore">
+                <a href="#carport-details">
+                  See what makes it yours <ArrowRight />
+                </a>
+              </Button>
+            </div>
+            <div className="hero-proof">
+              <Stars />
+              <span>
+                <strong>100+ positive reviews.</strong> One trusted Texas builder.
+              </span>
+            </div>
+          </div>
+          <ProductHeroForm product="Carports" />
+        </div>
+      </section>
 
       <PromiseStrip />
 
