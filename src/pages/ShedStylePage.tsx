@@ -1,6 +1,5 @@
 import type { CSSProperties } from "react";
-import { ArrowRight, ArrowUpRight, Flag, Hammer, Phone, Ruler, ShieldCheck, Warehouse } from "lucide-react";
-import barn from "@/assets/woolf-barn.jpg";
+import { ArrowRight, ArrowUpRight, Flag, Phone, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { CallToAction } from "@/components/CallToAction";
 import { Location } from "@/components/Location";
@@ -9,36 +8,27 @@ import { PromiseStrip } from "@/components/PromiseStrip";
 import { Reviews } from "@/components/Reviews";
 import { Stars } from "@/components/Stars";
 import { products, site } from "@/data/site";
+import type { ShedStyle } from "@/data/shedStyles";
 
 const shed = products.find((product) => product.name === "Sheds")!;
 
-const benefits = [
-  {
-    title: "A classic barn profile",
-    text: "The distinctive gambrel roof brings familiar barn character to a practical backyard shed.",
-    icon: Warehouse,
-  },
-  {
-    title: "Room for your plans",
-    text: "Create useful space for tools, seasonal storage, hobbies, and the things you want close at hand.",
-    icon: Ruler,
-  },
-  {
-    title: "Built onsite for you",
-    text: "Choose the details that suit your property, then have your barn-style shed built right in your backyard.",
-    icon: Hammer,
-  },
-];
+export function ShedStylePage({
+  style,
+  onInspect,
+}: {
+  style: ShedStyle;
+  onInspect: () => void;
+}) {
+  const detailsId = `${style.slug}-details`;
 
-export function BarnPage({ onInspect }: { onInspect: () => void }) {
   return (
     <>
-      <section className="hero hero-product-page" aria-label="Custom barn sheds in San Antonio">
+      <section className="hero hero-product-page" aria-label={`Custom ${style.name.toLowerCase()} sheds in San Antonio`}>
         <div className="hero-media">
           <img
-            src={barn}
+            src={style.image}
             className="hero-image active"
-            alt="Custom barn-style shed built for a Texas backyard"
+            alt={`Custom ${style.name.toLowerCase()} shed built for a Texas backyard`}
             width="1280"
             height="960"
             fetchPriority="high"
@@ -48,20 +38,18 @@ export function BarnPage({ onInspect }: { onInspect: () => void }) {
         <div className="site-width hero-inner">
           <div className="hero-message">
             <p className="hero-kicker">
-              <Flag aria-hidden="true" /> Custom built in San Antonio
+              <Flag aria-hidden="true" /> Custom {style.name} sheds in San Antonio
             </p>
             <h1>
-              <span className="hero-line">Barn style.</span>
-              <span className="hero-line">Room to spare.</span>
+              <span className="hero-line">{style.heroLines[0]}</span>
+              <span className="hero-line">{style.heroLines[1]}</span>
               <span className="hero-script">Built your way.</span>
             </h1>
             <p className="hero-product-price">
               Starting at <strong>{shed.price}</strong>
+              {style.category === "Specialty" && <> · {shed.note}</>}
             </p>
-            <p className="hero-copy">
-              A barn-inspired shed with a distinctive roofline, useful space, and details chosen for
-              your property.
-            </p>
+            <p className="hero-copy">{style.heroCopy}</p>
             <div className="hero-ctas">
               <Button asChild variant="light" className="rock-button hero-cta-form">
                 <a href="#free-inspection">
@@ -74,7 +62,7 @@ export function BarnPage({ onInspect }: { onInspect: () => void }) {
                 </a>
               </Button>
               <Button asChild variant="heroOutline" className="rock-button hero-cta-explore">
-                <a href="#barn-details">
+                <a href={`#${detailsId}`}>
                   See what makes it yours <ArrowRight />
                 </a>
               </Button>
@@ -92,22 +80,19 @@ export function BarnPage({ onInspect }: { onInspect: () => void }) {
 
       <PromiseStrip />
 
-      <section id="barn-details" className="product-details-section">
+      <section id={detailsId} className="product-details-section">
         <div className="site-width">
           <div className="product-details-heading" data-reveal>
-            <div className="eyebrow">A familiar look, made for your backyard</div>
+            <div className="eyebrow">{style.detailsEyebrow}</div>
             <h2 className="section-title">
-              Classic barn character.
+              {style.detailsLines[0]}
               <br />
-              <em>Space that works for you.</em>
+              <em>{style.detailsLines[1]}</em>
             </h2>
-            <p>
-              Make room for storage, projects, or hobbies in a barn-style shed planned around your
-              property and the way you want to use it.
-            </p>
+            <p>{style.detailsCopy}</p>
           </div>
           <div className="product-benefits">
-            {benefits.map(({ title, text, icon: Icon }, index) => (
+            {style.benefits.map(({ title, text, icon: Icon }, index) => (
               <article
                 className="product-benefit"
                 key={title}
@@ -129,8 +114,8 @@ export function BarnPage({ onInspect }: { onInspect: () => void }) {
         <div className="site-width product-build-inner">
           <div className="product-build-image" data-reveal>
             <img
-              src={barn}
-              alt="A finished custom barn-style shed"
+              src={style.image}
+              alt={`A finished custom ${style.name.toLowerCase()} shed`}
               width="1280"
               height="960"
               loading="lazy"
@@ -140,16 +125,13 @@ export function BarnPage({ onInspect }: { onInspect: () => void }) {
             </span>
           </div>
           <div className="product-build-copy" data-reveal>
-            <div className="eyebrow">From your idea to your backyard</div>
+            <div className="eyebrow">{style.buildEyebrow}</div>
             <h2 className="section-title">
-              Make it yours.
+              {style.buildLines[0]}
               <br />
-              <em>We’ll build it onsite.</em>
+              <em>{style.buildLines[1]}</em>
             </h2>
-            <p>
-              Tell us what you want to store or make room for. We’ll help plan a barn-style shed
-              around your needs and property, then build it onsite with a limited warranty included.
-            </p>
+            <p>{style.buildCopy}</p>
             <Button className="rock-button" onClick={onInspect}>
               Request a free site inspection <ArrowUpRight />
             </Button>

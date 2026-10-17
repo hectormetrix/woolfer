@@ -10,20 +10,20 @@ import { Location } from "@/components/Location";
 import { Footer } from "@/components/Footer";
 import { InspectionDialog } from "@/components/InspectionDialog";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
-import { BarnPage } from "@/pages/Barn";
 import { CarportsPage } from "@/pages/Carports";
 import { GaragesPage } from "@/pages/Garages";
 import { PatioCoversPage } from "@/pages/PatioCovers";
+import { ShedStylePage } from "@/pages/ShedStylePage";
 import { ShedsPage } from "@/pages/Sheds";
+import { shedStyles } from "@/data/shedStyles";
 
 export default function App() {
   const [inspectionOpen, setInspectionOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState("Sheds");
   const pathname = window.location.pathname.replace(/\/+$/, "").toLowerCase() || "/";
+  const currentShedStyle = shedStyles.find((style) => pathname === `/${style.slug}`);
   const currentProduct =
-    pathname === "/barn"
-      ? "Barn"
-      : pathname === "/carport" || pathname === "/carports"
+    pathname === "/carport" || pathname === "/carports"
       ? "Carports"
       : pathname === "/sheds"
         ? "Sheds"
@@ -32,7 +32,7 @@ export default function App() {
           : pathname === "/patio-covers"
             ? "Patio Covers"
             : null;
-  const inspectionProduct = currentProduct === "Barn" ? "Sheds" : currentProduct ?? "Sheds";
+  const inspectionProduct = currentShedStyle ? "Sheds" : currentProduct ?? "Sheds";
 
   useScrollReveal();
 
@@ -46,8 +46,11 @@ export default function App() {
     <>
       <Header onInspect={() => openInspection(inspectionProduct)} />
       <main>
-        {currentProduct === "Barn" ? (
-          <BarnPage onInspect={() => openInspection("Sheds")} />
+        {currentShedStyle ? (
+          <ShedStylePage
+            style={currentShedStyle}
+            onInspect={() => openInspection("Sheds")}
+          />
         ) : currentProduct === "Carports" ? (
           <CarportsPage onInspect={() => openInspection("Carports")} />
         ) : currentProduct === "Sheds" ? (

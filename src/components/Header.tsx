@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { ArrowUpRight, Menu, Phone, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { navLinks, site } from "@/data/site";
+import { shedStyles } from "@/data/shedStyles";
 
 export function Header({ onInspect }: { onInspect: () => void }) {
   const [menu, setMenu] = useState(false);
@@ -33,7 +34,16 @@ export function Header({ onInspect }: { onInspect: () => void }) {
           />
         </a>
         <nav className="main-nav" aria-label="Main navigation">
-          {navLinks.map(({ label, id }) => (
+          {navLinks.map(({ label, id }) => id === "sheds" ? (
+            <div className="nav-dropdown" key={id}>
+              <a href={navigationHref(id)}>{label}</a>
+              <nav className="nav-dropdown-menu" aria-label="Shed styles">
+                {shedStyles.map(({ name, slug }) => (
+                  <a key={slug} href={`/${slug}`}>{name}</a>
+                ))}
+              </nav>
+            </div>
+          ) : (
             <a
               key={id}
               href={navigationHref(id)}
@@ -66,7 +76,16 @@ export function Header({ onInspect }: { onInspect: () => void }) {
       </div>
       {menu && (
         <nav className="mobile-nav" aria-label="Mobile navigation">
-          {navLinks.map(({ label, id }) => (
+          {navLinks.map(({ label, id }) => id === "sheds" ? (
+            <div className="mobile-shed-group" key={id}>
+              <a href={navigationHref(id)} onClick={() => setMenu(false)}>{label}</a>
+              <div className="mobile-shed-links" aria-label="Shed styles">
+                {shedStyles.map(({ name, slug }) => (
+                  <a key={slug} href={`/${slug}`} onClick={() => setMenu(false)}>{name}</a>
+                ))}
+              </div>
+            </div>
+          ) : (
             <a
               key={id}
               href={navigationHref(id)}
