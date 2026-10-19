@@ -6,6 +6,7 @@ import tailwindcss from "@tailwindcss/vite";
 const githubPreviewHosts = [".app.github.dev", ".githubpreview.dev"];
 
 export default defineConfig({
+  base: "/",
   plugins: [react(), tailwindcss()],
   resolve: {
     alias: { "@": fileURLToPath(new URL("./src", import.meta.url)) },

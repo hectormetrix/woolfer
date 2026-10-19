@@ -2,6 +2,8 @@ import type { CSSProperties } from "react";
 import { ArrowRight, ArrowUpRight, CarFront, Flag, Hammer, Phone, Ruler, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { CallToAction } from "@/components/CallToAction";
+import { CarportDimensionsPrices } from "@/components/CarportDimensionsPrices";
+import { CarportStandardFeatures } from "@/components/CarportStandardFeatures";
 import { Location } from "@/components/Location";
 import { ProductHeroForm } from "@/components/ProductHeroForm";
 import { PromiseStrip } from "@/components/PromiseStrip";
@@ -90,6 +92,8 @@ export function CarportsPage({ onInspect }: { onInspect: () => void }) {
       </section>
 
       <PromiseStrip />
+      <CarportStandardFeatures />
+      <CarportDimensionsPrices />
 
       <section id="carport-details" className="carport-details-section">
         <div className="site-width">

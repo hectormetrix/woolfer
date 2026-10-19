@@ -2,6 +2,8 @@ import type { CSSProperties } from "react";
 import { ArrowRight, ArrowUpRight, FileCheck2, Flag, Home, Phone, Ruler, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { CallToAction } from "@/components/CallToAction";
+import { GarageDimensionsPrices } from "@/components/GarageDimensionsPrices";
+import { GarageStandardFeatures } from "@/components/GarageStandardFeatures";
 import { Location } from "@/components/Location";
 import { ProductHeroForm } from "@/components/ProductHeroForm";
 import { PromiseStrip } from "@/components/PromiseStrip";
@@ -71,6 +73,8 @@ export function GaragesPage({ onInspect }: { onInspect: () => void }) {
       </section>
 
       <PromiseStrip />
+      <GarageStandardFeatures />
+      <GarageDimensionsPrices />
 
       <section id="garage-details" className="product-details-section">
         <div className="site-width">

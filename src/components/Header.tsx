@@ -111,5 +111,8 @@ export function Header({ onInspect }: { onInspect: () => void }) {
 function navigationHref(id: string) {
   if (["sheds", "garages", "patio-covers", "carports"].includes(id)) return `/${id}`;
   if (id === "reviews") return site.reviewsUrl;
-  return window.location.pathname === "/" ? `#${id}` : `/#${id}`;
+
+  const currentPath = typeof window === "undefined" ? "/" : window.location.pathname;
+  const normalizedPath = currentPath.split(/[?#]/, 1)[0].replace(/\/+$/, "") || "/";
+  return normalizedPath === "/" ? `#${id}` : `/#${id}`;
 }

@@ -1,4 +1,4 @@
-import { useState, type ComponentType } from "react";
+import { useEffect, useState, type ComponentType } from "react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { InspectionDialog } from "@/components/InspectionDialog";
@@ -32,17 +32,26 @@ const pages: Record<string, { component: ComponentType<PageProps>; product: stri
   "/view": { component: ViewPage, product: "Sheds" },
 };
 
+function normalizePathname(pathname = typeof window === "undefined" ? "/" : window.location.pathname) {
+  const cleanPath = pathname.split(/[?#]/, 1)[0].replace(/\/+$/, "") || "/";
+  return cleanPath.toLowerCase();
+}
+
 export default function App() {
   const [inspectionOpen, setInspectionOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState("Sheds");
-  const pathname = window.location.pathname.replace(/\/+$/, "").toLowerCase() || "/";
+  const pathname = normalizePathname();
   const page = pages[pathname] ?? pages["/"];
   const Page = page.component;
 
   useScrollReveal();
 
+  useEffect(() => {
+    setSelectedProduct(page.product);
+  }, [page.product]);
+
   /** Opens the free site inspection form, pre-set to a product. */
-  const openInspection = (product = "Sheds") => {
+  const openInspection = (product = page.product) => {
     setSelectedProduct(product);
     setInspectionOpen(true);
   };
