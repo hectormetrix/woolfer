@@ -2,6 +2,8 @@ import type { CSSProperties } from "react";
 import { ArrowRight, ArrowUpRight, Flag, Phone, Ruler, ShieldCheck, Sun, Wrench } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { CallToAction } from "@/components/CallToAction";
+import { PatioCoverDimensionsPrices } from "@/components/PatioCoverDimensionsPrices";
+import { PatioCoverStandardFeatures } from "@/components/PatioCoverStandardFeatures";
 import { Location } from "@/components/Location";
 import { ProductHeroForm } from "@/components/ProductHeroForm";
 import { PromiseStrip } from "@/components/PromiseStrip";
@@ -72,6 +74,8 @@ export function PatioCoversPage({ onInspect }: { onInspect: () => void }) {
       </section>
 
       <PromiseStrip />
+      <PatioCoverStandardFeatures />
+      <PatioCoverDimensionsPrices />
 
       <section id="patio-cover-details" className="product-details-section">
         <div className="site-width">

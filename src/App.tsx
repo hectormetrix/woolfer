@@ -11,6 +11,7 @@ import { GaragesPage } from "@/pages/Garages";
 import { HipPage } from "@/pages/Hip";
 import { HomePage } from "@/pages/Home";
 import { OverhangPage } from "@/pages/Overhang";
+import { OptionsPage } from "@/pages/Options";
 import { PatioCoversPage } from "@/pages/PatioCovers";
 import { ShedsPage } from "@/pages/Sheds";
 import { ViewPage } from "@/pages/View";
@@ -30,6 +31,7 @@ const pages: Record<string, { component: ComponentType<PageProps>; product: stri
   "/club": { component: ClubPage, product: "Sheds" },
   "/hip": { component: HipPage, product: "Sheds" },
   "/view": { component: ViewPage, product: "Sheds" },
+  "/options": { component: OptionsPage, product: "Sheds" },
 };
 
 function normalizePathname(pathname = typeof window === "undefined" ? "/" : window.location.pathname) {

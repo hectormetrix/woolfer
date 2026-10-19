@@ -1,12 +1,22 @@
 import type { CSSProperties } from "react";
 import { ArrowRight, ArrowUpRight, Flag, Phone, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { BarnDimensionsPrices } from "@/components/BarnDimensionsPrices";
 import { CallToAction } from "@/components/CallToAction";
+import { ClubDimensionsPrices } from "@/components/ClubDimensionsPrices";
+import { ClubStandardFeatures } from "@/components/ClubStandardFeatures";
+import { GableDimensionsPrices } from "@/components/GableDimensionsPrices";
+import { HipDimensionsPrices } from "@/components/HipDimensionsPrices";
+import { HipStandardFeatures } from "@/components/HipStandardFeatures";
 import { Location } from "@/components/Location";
+import { OverhangDimensionsPrices } from "@/components/OverhangDimensionsPrices";
 import { ProductHeroForm } from "@/components/ProductHeroForm";
 import { PromiseStrip } from "@/components/PromiseStrip";
 import { Reviews } from "@/components/Reviews";
 import { Stars } from "@/components/Stars";
+import { UtilityShedStandardFeatures } from "@/components/UtilityShedStandardFeatures";
+import { ViewDimensionsPrices } from "@/components/ViewDimensionsPrices";
+import { ViewStandardFeatures } from "@/components/ViewStandardFeatures";
 import { products, site } from "@/data/site";
 import type { ShedStyle } from "@/data/shedStyles";
 
@@ -20,6 +30,11 @@ export function ShedStylePage({
   onInspect: () => void;
 }) {
   const detailsId = `${style.slug}-details`;
+  const specialtyStartingPrice = {
+    club: "$5,700",
+    hip: "$5,900",
+    view: "$7,300",
+  }[style.slug];
 
   return (
     <>
@@ -46,8 +61,8 @@ export function ShedStylePage({
               <span className="hero-script">Built your way.</span>
             </h1>
             <p className="hero-product-price">
-              Starting at <strong>{shed.price}</strong>
-              {style.category === "Specialty" && <> · {shed.note}</>}
+              Starting at <strong>{specialtyStartingPrice ?? shed.price}</strong>
+              {style.category === "Specialty" && !specialtyStartingPrice && <> · {shed.note}</>}
             </p>
             <p className="hero-copy">{style.heroCopy}</p>
             <div className="hero-ctas">
@@ -79,6 +94,28 @@ export function ShedStylePage({
       </section>
 
       <PromiseStrip />
+      {style.category === "Utility" && <UtilityShedStandardFeatures />}
+      {style.slug === "barn" && <BarnDimensionsPrices />}
+      {style.slug === "gable" && <GableDimensionsPrices />}
+      {style.slug === "overhang" && <OverhangDimensionsPrices />}
+      {style.slug === "club" && (
+        <>
+          <ClubStandardFeatures />
+          <ClubDimensionsPrices />
+        </>
+      )}
+      {style.slug === "hip" && (
+        <>
+          <HipStandardFeatures />
+          <HipDimensionsPrices />
+        </>
+      )}
+      {style.slug === "view" && (
+        <>
+          <ViewStandardFeatures />
+          <ViewDimensionsPrices />
+        </>
+      )}
 
       <section id={detailsId} className="product-details-section">
         <div className="site-width">

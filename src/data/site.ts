@@ -51,7 +51,7 @@ export const products: Product[] = [
     name: "Sheds",
     slug: "sheds",
     image: shed,
-    price: "$3,099",
+    price: "$3,549",
     description: "Storage. Backyard gym. Home office. Art studio. You call it. We build it.",
     note: "Specialty sheds from $5,700",
     detail:

@@ -41,6 +41,7 @@ export function Header({ onInspect }: { onInspect: () => void }) {
                 {shedStyles.map(({ name, slug }) => (
                   <a key={slug} href={`/${slug}`}>{name}</a>
                 ))}
+                <a href="/options">Options</a>
               </nav>
             </div>
           ) : (
@@ -83,6 +84,7 @@ export function Header({ onInspect }: { onInspect: () => void }) {
                 {shedStyles.map(({ name, slug }) => (
                   <a key={slug} href={`/${slug}`} onClick={() => setMenu(false)}>{name}</a>
                 ))}
+                <a href="/options" onClick={() => setMenu(false)}>Options</a>
               </div>
             </div>
           ) : (
